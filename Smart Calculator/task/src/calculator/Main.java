@@ -17,14 +17,18 @@ public class Main {
                     if (input[0].equals("/exit")) {
                         System.out.println("Bye!");
                         break;
-                    } else {
+                    } else if (input[0].equals("/help")) {
+                        System.out.println("The program calculates the sum of numbers");
+                    } else if (!input[0].equals("")) {
                         System.out.println(input[0]);
                     }
                     break;
                 default:
-                    int a = Integer.parseInt(input[0]);
-                    int b = Integer.parseInt(input[1]);
-                    System.out.println(a + b);
+                    int sum = 0;
+                    for (String string : input) {
+                        sum += Integer.parseInt(string);
+                    }
+                    System.out.println(sum);
                     break;
             }
         } while (!input[0].equals("/exit"));
