@@ -9,6 +9,9 @@
       <module name="Smart_Calculator.Smart_Calculator-task-build-test-results.main" target="16" />
       <module name="Smart_Calculator.Smart_Calculator-task-build-tmp.main" target="16" />
       <module name="Smart_Calculator.Smart_Calculator-task.main" target="16" />
+      <module name="Smart_Calculator.Topics-BigInteger-An_expression_with_large_numbers.main" target="16" />
+      <module name="Smart_Calculator.Topics-BigInteger-Comparing_numbers.main" target="16" />
+      <module name="Smart_Calculator.Topics-BigInteger-Theory.main" target="16" />
       <module name="Smart_Calculator.Topics-Replacing_characters-Check_the_essay.main" target="16" />
       <module name="Smart_Calculator.Topics-Replacing_characters-Remove_comments.main" target="16" />
       <module name="Smart_Calculator.Topics-Replacing_characters-Remove_extra_spaces.main" target="16" />

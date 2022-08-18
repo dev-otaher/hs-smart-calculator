@@ -291,6 +291,12 @@ files:
         }
     }
   learner_created: false
+- name: src/calculator/Expression.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/42/stages/225/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 15 Aug 2022 13:48:51 UTC
+record: 6
