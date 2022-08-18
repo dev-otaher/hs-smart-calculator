@@ -1,10 +1,10 @@
 package calculator;
 
+import java.math.BigInteger;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Expression {
@@ -125,31 +125,31 @@ public class Expression {
         return isValidAssignment(string);
     }
 
-    private int calculate(int a, int b, char op) {
+    private BigInteger calculate(BigInteger a, BigInteger b, char op) {
         return switch (op) {
-            case '+' -> a + b;
-            case '-' -> a - b;
-            case '*' -> a * b;
-            case '/' -> a / b;
+            case '+' -> a.add(b);
+            case '-' -> a.subtract(b);
+            case '*' -> a.multiply(b);
+            case '/' -> a.divide(b);
             default -> throw new ArithmeticException("Invalid Operator!");
         };
     }
 
-    private int evaluatePostfix(Deque<String> postfix) {
-        Deque<Integer> operandStack = new ArrayDeque<>();
+    private BigInteger evaluatePostfix(Deque<String> postfix) {
+        Deque<BigInteger> operandStack = new ArrayDeque<>();
         for (String token : postfix) {
             if (isOperand(token)) {
-                operandStack.push(Integer.valueOf(variables.getOrDefault(token, token)));
+                operandStack.push(new BigInteger(variables.getOrDefault(token, token)));
             } else if (isOperator(token)) {
-                int op2 = operandStack.pop();
-                int op1 = operandStack.pop();
+                BigInteger op2 = operandStack.pop();
+                BigInteger op1 = operandStack.pop();
                 operandStack.push(calculate(op1, op2, token.charAt(0)));
             }
         }
         return operandStack.pop();
     }
 
-    public int evaluate() throws Exception {
+    public BigInteger evaluate() throws Exception {
         expression = expression.replaceAll("\\s+", " ")
                 .replaceAll("\\++", "+")
                 .replaceAll("-{3}", "-")
