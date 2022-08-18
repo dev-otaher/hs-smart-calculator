@@ -4,26 +4,20 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Expression {
-    private String expression;
     private static final Map<String, String> variables = new HashMap<>();
+    private String expression;
 
     public Expression(String expression) {
         this.expression = expression;
     }
 
-    public Map<String, String> getVariables() {
-        return variables;
-    }
-
     public static boolean isInvalid(String expression) {
-        return expression.matches("([+-]?\\d+[+-]+)|.*\\*{2,}.*");
-    }
-
-    public boolean isVariableAssignment() {
-        return expression.contains("=");
+        return Pattern.compile("^[+-]?\\d+[+-]+").matcher(expression).find()
+               || Pattern.compile("[*/]{2,}").matcher(expression).find();
     }
 
     public static boolean isValidIdentifier(String identifier) {
@@ -32,6 +26,31 @@ public class Expression {
 
     private static boolean isValidAssignment(String assignment) {
         return isValidIdentifier(assignment) || assignment.matches("-?\\d+");
+    }
+
+    private static boolean isOperator(char op) {
+        return Pattern.matches("[+*\\-/]", String.valueOf(op));
+    }
+
+    private static boolean isOperator(String op) {
+        if (op.length() > 1) return false;
+        return isOperator(op.charAt(0));
+    }
+
+    private static int getOpPrecedence(char op) {
+        return switch (op) {
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            default -> 0;
+        };
+    }
+
+    public Map<String, String> getVariables() {
+        return variables;
+    }
+
+    public boolean isVariableAssignment() {
+        return expression.contains("=");
     }
 
     public void storeVariable() {
@@ -55,23 +74,6 @@ public class Expression {
 
     public boolean isVariableQuery() {
         return expression.matches("\\w+");
-    }
-
-    private static boolean isOperator(char op) {
-        return Pattern.matches("[+*\\-/]", String.valueOf(op));
-    }
-
-    private static boolean isOperator(String op) {
-        if (op.length() > 1) return false;
-        return isOperator(op.charAt(0));
-    }
-
-    private static int getOpPrecedence(char op) {
-        return switch (op) {
-            case '+', '-' -> 1;
-            case '*', '/' -> 2;
-            default -> 0;
-        };
     }
 
     public Deque<String> convertInfixToPostfix() throws Exception {

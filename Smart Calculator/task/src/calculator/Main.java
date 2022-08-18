@@ -48,7 +48,7 @@ public class Main {
                     try {
                         System.out.println(expression.evaluate());
                     } catch (Exception e) {
-                        System.out.println(e);
+                        System.out.println(e.getMessage());
                     }
             }
         } while (!input.equals("/exit"));
